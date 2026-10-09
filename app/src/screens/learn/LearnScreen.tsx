@@ -14,7 +14,9 @@ const STATUS_LABEL: Record<LessonStatus, string> = {
 export function LearnScreen() {
   const navigate = useNavigate();
   const { attempts, refresh } = useAttemptsStore();
-  useEffect(() => void refresh(), [refresh]);
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
 
   const statuses = new Map(LESSONS.map((l) => [l.id, lessonStatus(attempts, l.id)]));
   const prereqsMet = (l: Lesson) => l.prereqs.every((p) => statuses.get(p)?.status !== 'not-started');

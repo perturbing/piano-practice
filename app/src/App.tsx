@@ -38,7 +38,11 @@ export function App() {
     setRecoverable([]);
   };
 
-  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
+  // Block body: newer Chrome returns a Promise from scrollTo(), which React would
+  // treat as an effect cleanup and crash on the next navigation.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="shell">

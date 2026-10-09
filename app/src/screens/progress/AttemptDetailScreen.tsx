@@ -11,7 +11,9 @@ export function AttemptDetailScreen() {
   const { attemptId } = useParams();
   const navigate = useNavigate();
   const [a, setA] = useState<Attempt | null | undefined>(undefined);
-  useEffect(() => void getAttempt(attemptId ?? '').then((x) => setA(x ?? null)), [attemptId]);
+  useEffect(() => {
+    void getAttempt(attemptId ?? '').then((x) => setA(x ?? null));
+  }, [attemptId]);
 
   if (a === undefined) return <main className="screen">Loading…</main>;
   if (a === null)

@@ -21,7 +21,9 @@ export function DataScreen() {
   const update = useSettingsStore((s) => s.update);
 
   const reload = () => listAttempts().then(setAttempts);
-  useEffect(() => void reload(), []);
+  useEffect(() => {
+    void reload();
+  }, []);
 
   const exportJson = async () => {
     const env = await exportAll();

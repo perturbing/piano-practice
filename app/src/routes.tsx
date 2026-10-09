@@ -12,6 +12,7 @@ import { AttemptDetailScreen } from './screens/progress/AttemptDetailScreen';
 import { DevicesScreen } from './screens/devices/DevicesScreen';
 import { DataScreen } from './screens/data/DataScreen';
 import { SessionScreen } from './screens/session/SessionScreen';
+import { RouteError } from './components/RouteError';
 
 /** Remount setup per family so one family's parameters never leak into another. */
 function SetupRoute() {
@@ -26,10 +27,11 @@ function StartTab() {
 
 // Hash routing keeps the app servable from any static file host (GitHub Pages).
 export const router = createHashRouter([
-  { path: '/session', element: <SessionScreen /> },
+  { path: '/session', element: <SessionScreen />, errorElement: <RouteError /> },
   {
     path: '/',
     element: <App />,
+    errorElement: <RouteError />,
     children: [
       { index: true, element: <StartTab /> },
       { path: 'learn', element: <LearnScreen /> },

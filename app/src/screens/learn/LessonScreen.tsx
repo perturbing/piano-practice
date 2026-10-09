@@ -22,7 +22,9 @@ export function LessonScreen() {
   const lesson = lessonById(lessonId ?? '');
   const range = useSettingsStore((s) => s.settings.range);
   const { attempts, refresh } = useAttemptsStore();
-  useEffect(() => void refresh(), [refresh]);
+  useEffect(() => {
+    void refresh();
+  }, [refresh]);
   const stepIndex = Math.max(0, Math.min(Number(params.get('step') ?? 0), (lesson?.steps.length ?? 1) - 1));
   const exercise = lesson?.steps[stepIndex]?.exercise;
   // Seeded preview of the step's exercise (counts, mode, whether it plays prompts).
@@ -148,7 +150,10 @@ export function ObservePlayer({ demo }: { demo: ObserveDemo }) {
   const [slow, setSlow] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const range = useSettingsStore((s) => s.settings.range);
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  useEffect(() => {
+    const list = timers.current;
+    return () => list.forEach(clearTimeout);
+  }, []);
 
   const play = async () => {
     await ensureAudio();

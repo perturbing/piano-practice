@@ -11,7 +11,9 @@ export function PractiseScreen() {
   const navigate = useNavigate();
   const [skill, setSkill] = useState<(typeof SKILLS)[number]>('All');
   const [presets, setPresets] = useState<Preset[]>([]);
-  useEffect(() => void listPresets().then(setPresets), []);
+  useEffect(() => {
+    void listPresets().then(setPresets);
+  }, []);
 
   const shown = FAMILIES.filter((f) => skill === 'All' || f.skill === skill);
   return (
